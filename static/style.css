@@ -1,0 +1,347 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #0d0f14;
+    --surface: #171a23;
+    --surface-alt: #1f2430;
+    --border: #2a2f3d;
+    --text: #e5e7eb;
+    --text-muted: #8b94a8;
+    --accent: #6366f1;
+    --accent-hover: #7c7ff5;
+    --cyan: #22d3ee;
+    --danger: #ef4444;
+    --danger-hover: #dc2626;
+}
+
+body {
+    font-family: 'Segoe UI', -apple-system, Arial, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+}
+
+/* Navbar */
+.navbar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo {
+    color: var(--text);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    cursor: default;
+}
+
+.navbar a {
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-left: 24px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.navbar a:hover {
+    color: var(--cyan);
+}
+
+/* Hero - dotted network pattern background + floating orbs */
+.hero {
+    background-color: var(--bg);
+    background-image: radial-gradient(var(--border) 1px, transparent 1px);
+    background-size: 24px 24px;
+    padding: 70px 20px 110px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, var(--bg));
+    z-index: 0;
+}
+
+.hero h1, .hero p {
+    position: relative;
+    z-index: 1;
+}
+
+.hero h1 {
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 15px;
+    color: var(--text-muted);
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.35;
+    z-index: 0;
+    animation: float 8s ease-in-out infinite;
+}
+
+.orb-1 {
+    width: 280px;
+    height: 280px;
+    background: var(--accent);
+    top: -80px;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.orb-2 {
+    width: 220px;
+    height: 220px;
+    background: var(--cyan);
+    top: -40px;
+    right: 15%;
+    animation-delay: 2s;
+}
+
+.orb-3 {
+    width: 180px;
+    height: 180px;
+    background: var(--accent);
+    bottom: -60px;
+    left: 45%;
+    animation-delay: 4s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    50% { transform: translateY(-20px) translateX(15px); }
+}
+
+/* Floating card container */
+.container {
+    max-width: 900px;
+    margin: -70px auto 50px auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 36px;
+    border-radius: 14px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h2 {
+    color: var(--text);
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+h3 {
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 24px 0 12px 0;
+}
+
+a {
+    color: var(--cyan);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Forms */
+form {
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    padding: 22px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="url"],
+input[type="number"],
+input[type="file"] {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+button {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s, transform 0.15s;
+}
+
+button:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Table - fixed alignment with scroll wrapper */
+.table-wrapper {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-top: 12px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+}
+
+th, td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+th {
+    background-color: var(--surface-alt);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+tr {
+    transition: background-color 0.15s;
+}
+
+tr:hover td {
+    background-color: var(--surface-alt);
+}
+
+td a {
+    font-family: 'Consolas', 'Courier New', monospace;
+    background: var(--surface-alt);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    transition: box-shadow 0.2s;
+}
+
+td a:hover {
+    box-shadow: 0 0 0 1px var(--cyan);
+}
+
+td button {
+    padding: 8px 16px;
+    font-size: 13px;
+}
+
+td form {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 28px 0;
+}
+
+ul {
+    list-style: none;
+    margin-bottom: 18px;
+}
+
+ul li {
+    background-color: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: var(--cyan);
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+canvas {
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+}
