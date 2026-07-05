@@ -13,15 +13,19 @@ from flask_limiter.util import get_remote_address
 from sqlalchemy import func
 from models import db, User, URL, Visit
 
-# Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 
-# Disable rate limiting during test runs to avoid cross-test interference
+# Render.
+database_url = os.environ.get('DATABASE_URL')
+if database_url and database_url.startswith('postgres://'):
+    database_url = database_url.replace('postgres://', 'postgresql://', 1)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+
 app.config['RATELIMIT_ENABLED'] = os.environ.get('TESTING') != 'true'
 
 db.init_app(app)
@@ -104,7 +108,6 @@ def dashboard():
     today_start = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
     week_start = today_start - timedelta(days=today_start.weekday())
 
-    # Build per-link analytics: clicks today, clicks this week, last accessed timestamp
     analytics = {}
     for link in links:
         clicks_today = Visit.query.filter(
@@ -131,7 +134,6 @@ def dashboard():
     chart_labels = [url.short_code for url in top_urls]
     chart_data = [url.click_count for url in top_urls]
 
-    # Aggregate click counts for the last 7 days, oldest to newest
     last_7_days_labels = []
     last_7_days_counts = []
 
@@ -236,7 +238,6 @@ def bulk_upload():
 
     raw_data = file.stream.read()
     try:
-        # utf-8-sig strips a BOM if present, and falls back cleanly otherwise
         decoded_data = raw_data.decode("utf-8-sig")
     except UnicodeDecodeError:
         decoded_data = raw_data.decode("utf-8")
